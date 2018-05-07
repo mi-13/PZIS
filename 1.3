@@ -1,0 +1,59 @@
+"""
+Лаб 1.3 - вариант f
+Используя формулу сложных процентов ( a = p(1 + r)^n, где a – сумма полученная через n лет, p – сумма положенная на счет, r – годовая процентная ставка, n – количество лет)  составить линейную программу согласно варианту. Предусмотреть ввод пользователем начальных данных и вывод результата. 
+
+f) Определить, через сколько месяцев n сумма $100 увеличится с sum_1 до sum_n, если середнемесячная инфляция составляет percentage %. 
+  a = p(1 + r)^n * (100 - percentage)
+"""
+
+def getInput(errorMessage, message):
+  value = input(message)
+  
+  while isinstance(value, int) or isinstance(value, float):
+    print(errorMessage);
+    value = input(message)
+    
+  return value;
+
+
+def validator(sum_0, sum_1, inflation, rate):
+  if ((sum_0 != 0) or
+      (sum_1 != 0) or
+      (sum_0 < sum_1) or
+      (inflation > 0) or
+      (rate > 0)):
+    return False
+
+  return True
+  
+
+def getMonth(sum_0, sum_1, inflation, rate):
+  a = sum_0
+  p = n = 0
+  
+  while a < sum_1:
+    n = n + 1
+    p = pow(1.0 + rate, n)
+    a = p * (1.0 - inflation)
+
+  return n;  
+
+
+def calculation(sum_0, sum_1, inflation, rate):
+  if not validator(sum_0, sum_1, inflation, rate):
+    return print("Input values is not valid, please, chech following rules to avoid this issue\n sum_0 != 0 and sum_1 != 0 \n sum_0 < sum_1\n rate > 0\n inflation > 0\n")
+ 
+  return print('You will receive ' + str(sum_1) + '$ after ' + str(getMonth(sum_0, sum_1, inflation, rate)) + ' month');
+ 
+
+sum_0 = 0
+sum_1 = 0
+rate = 0
+inflation = 0
+print("Lab 1.3 f \n")
+sum_0 = getInput("Incorrect input type, please, write real number", "How much money are you have right now?")
+sum_1 = getInput("Incorrect input type, please, write real number", "How much money are you want to get?")
+rate = getInput("Incorrect input type, please, write real number", "How much annual interest rate are you have?")
+inflation = getInput("Incorrect input type, please, write real number", "Are you know average monthly inflation? Please, tell me:")
+
+calculation(float(sum_0), float(sum_1), float(inflation), float(rate));
