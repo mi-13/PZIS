@@ -1,0 +1,35 @@
+"""
+Лаб 1.5 - вариант f
+Вычислите площадь фигуры согласно варианту, по введенным значениям ее измерений. 
+f) параллелограмм; 
+S = a * h
+S = a * b * sin(α)
+S = 1/2 * d1 * d2 * sin(γ)
+
+де S - площа паралелограма,
+a, b - довжини сторін паралелограма,
+h - довжина висоти паралелограма,
+d1, d2 - довжини діагоналей паралелограма,
+α - кут між сторонами паралелограма,
+γ - кут між діагоналями паралелограма.
+
+"""
+# TODO: validate me
+
+def getInput(errorMessage, message):
+  value = input(message)
+  
+  while isinstance(value, float):
+    print(errorMessage);
+    value = input(message)
+    
+  return value;
+
+def getArea(a, h):
+  return a * h;
+
+a = h = 0
+a = getInput("Incorrect input type, please, write real number", "Input const A = ")
+h = getInput("Incorrect input type, please, write real number", "Input const H = ")
+
+print('Area: ' + str(getArea(float(a), float(h))))
