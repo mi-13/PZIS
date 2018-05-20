@@ -1,0 +1,26 @@
+"""
+Лаб 2.3
+варіант f
+"""
+
+def func_a(i):
+  if i % 2 == 0:
+    return i-1
+  else:
+    return 2*i - 17
+
+def func_b(i):
+  if i % 2 == 0:
+    return 3*i-16
+  else:
+    return i**3
+
+sum = 0
+begin = 1
+end = 30
+for i in range(begin, end+1):
+  print("Step[",i,"]: ", (func_a(i) - func_b(i))**2)
+  sum = sum + (func_a(i) - func_b(i))**2
+
+print("Suma: ", sum)
+ 
