@@ -1,0 +1,31 @@
+"""
+Лаб 2.5
+Даны натуральное число n и действительные числа a[1] ... a[n] Вычислить: 
+варіант f
+min(|a[1]| ... |a[n]|) - max(|a[1]| ... |a[n]|); 
+"""
+
+from math import fabs
+
+def getInput(errorMessage, message):
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
+
+array = []
+num = getInput("Incorrect input type, please, write real number", "Enter how many elements you want:")
+print('Enter numbers in array:')
+for i in range(num):
+  n = getInput("Incorrect input type, please, write real number", "num :")
+  array.append(fabs(n))
+
+maxValue = max(array) 
+minValue = min(array)
+res = maxValue - minValue
+print("max(array) - min(array): ", maxValue, " - ", minValue, " = ",  res);
