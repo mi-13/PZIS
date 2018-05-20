@@ -1,0 +1,44 @@
+"""
+Лаб 2.2
+Найти сумму чисел определенных в предыдущей задаче. 
+
+Завдання 2.1
+Даны натуральные числа n, a[1] ... a[n] . Определить количество членов a[k] последовательности: 
+f) удовлетворяющих условию ! 2k < a[k] <  k!
+"""
+
+def getInput(errorMessage, message):
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
+
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
+
+f = 0
+suma = 0
+count = 0;
+num = getInput("Incorrect input type, please, write real number", "Enter how many elements you want:")
+print('Enter numbers in array:')
+for k in range(int(num)):
+  n = getInput("Incorrect input type, please, write real number", "num :")
+  firstPart = 2.0 * k
+  f = factorial(k)
+  if firstPart < n and n < f:
+    count = count + 1
+    suma = suma + n
+    print('Element k = ', k , ' : [', firstPart, '..', f, '] = ', True)
+  else:
+    print('Element k = ', k , ' : [', firstPart, '..', f, '] = ', False)
+
+print("Count: ", count)
+print("Suma: ", suma)
