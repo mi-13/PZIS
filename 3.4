@@ -1,0 +1,87 @@
+"""
+Лаб 3.4
+Анна и Борис любят играть в разноцветные кубики, причем у каждого из них свой набор и в каждом наборе все кубики различны по цвету. Однажды дети заинтересовались, сколько существуют цветов таких, что кубики каждого цвета присутствуют в обоих наборах. Для этого они занумеровали все цвета случайными числами. На этом их энтузиазм иссяк, поэтому вам предлагается помочь им в оставшейся части. Номер любого цвета – это целое число в пределах от 0 до 10**9. В первой строке входного файла записаны числа N и M – количество кубиков у Анны и Бориса соответственно. В следующих N строках заданы номера цветов кубиков Анны. В последних M строках номера цветов кубиков Бориса
+
+варіант f
+Выведите сначала количество, а затем отсортированные по возрастанию номера цветов таких, что кубики каждого цвета есть в обоих наборах, затем количество и отсортированные по убыванию кратные 7 номера остальных цветов у Анны, потом количество и отсортированные по возрастанию четные номера остальных цветов у Бориса
+"""
+
+from random import *
+
+def getInput(errorMessage, message):
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
+
+def initList(array, lengthList):
+  number = 0
+  for i in range(lengthList):
+    number = getInput("Incorrect input type, please, write real number", "Enter number [" + str(i) + "]:")
+    array.append(number)
+
+  return(array)
+
+def matched(list1, list2):
+  rez = list()
+  for i in range(len(list1)):
+    if (list1[i] in list2):
+      rez.append(list1[i])
+  
+  rez = list(set(rez))
+  rez.sort(reverse=True)
+  return rez
+
+def not_matched(list1, execpt_list):
+  rez = list()
+  for i in range(len(list1)):
+    if (list1[i] not in execpt_list and list1[i] % 7 == 0):
+      rez.append(list1[i])
+
+  rez.sort(reverse=True)
+  return rez    
+
+def odd_list(list1):
+  rez = list()
+  for i in range(len(list1)):
+    if (list1[i] % 2 == 0):
+      rez.append(list1[i])
+
+  rez.sort()
+  return rez  
+
+
+anna = list()
+boris = list()
+anna_length = 0
+boris_length = 0
+lengthList = 10 #100 000 
+
+anna_length = getInput("Incorrect input type, please, write real number", "How mant cubes have Anna?:")
+boris_length = getInput("Incorrect input type, please, write real number", "How mant cubes have Boris?:")
+
+print("Anna list")
+initList(anna, anna_length)
+print("Boris list")
+initList(boris, boris_length)
+
+rez = list()
+rez = matched(anna, boris)
+
+print("Count matched:", str(len(rez)))
+print("List:", rez)
+
+rez = not_matched(anna, rez)
+print("Anna[not matched and ^7]:", str(len(rez)))
+print("List:", rez)
+
+rez = odd_list(boris)
+print("Boris[odd number]:", str(len(rez)))
+print("List:", rez)
+
+
