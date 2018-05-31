@@ -1,0 +1,63 @@
+"""
+Лаб 3.2
+Сгенерировать два списка чисел со значениями из заданного диапазона, которые могут содержать до 100000 чисел каждый. Посчитайте, сколько чисел:
+
+варіант f
+которые являются суммой четных из первого списка и есть во втором списке, а также их количество; 
+"""
+
+from random import *
+from collections import Counter
+
+def getInput(errorMessage, message):
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
+
+def initList(begin, end, lengthList):
+  array = list()
+  for i in range(lengthList):
+    array.append(randint(begin, end))
+
+  return(array)
+
+def getSumCount(list1, list2):
+  sum = 0
+  rez = list()
+  for i in range(1, lengthList, 2):
+   for j in range(i, lengthList, 2):
+     if (i == j): continue
+     sum = list1[i]+list1[j]
+     print(list1[i], " + ", list1[j], " = ", sum)
+     if (sum in list2):
+       rez.append(sum)
+  
+  
+  return Counter(rez)
+
+
+list1 = list()
+list2 = list()
+sum1 = list()
+begin = 0
+end = 10
+lengthList = 10 #100 000 
+
+# begin = getInput("Incorrect input type, please, write real number", "Enter start interval:")
+# end = getInput("Incorrect input type, please, write real number", "Enter start interval:")
+# lengthList = getInput("Incorrect input type, please, write real number", "Enter length list:")
+
+list1 = initList(begin, end, lengthList)
+list2 = initList(begin, end, lengthList)
+
+print(list1)
+print(list2)
+
+print(getSumCount(list1, list2))
+
