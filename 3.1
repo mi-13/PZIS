@@ -1,0 +1,37 @@
+"""
+Лаб 3.1
+Извлечение и удаление элементов списка
+варіант f
+Создать список, состоящий из целых чисел указанного диапазона. Определить среднее арифметическое значений элементов списка, начиная с 5-го элемента списка до конца и добавить ее во второй список. 
+"""
+
+from random import *
+
+def getInput(errorMessage, message):
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
+
+list1 = list()
+list2 = list()
+begin = 0
+end = 10
+
+for i in range(begin, end):
+  list1.append(randint(begin, end))
+
+sum = count = 0
+for i in range(5, end):
+  count = count + 1
+  sum = sum + list1[i]
+
+list2.append(sum/count);
+
+print(list1)
+print(list2)
