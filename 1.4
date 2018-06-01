@@ -7,13 +7,15 @@
 from math import sqrt, asin, pi
 
 def getInput(errorMessage, message):
-  value = input(message)
-  
-  while isinstance(value, float):
-    print(errorMessage);
-    value = input(message)
-    
-  return value;
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
 
 def calculation1(a, b, c, x):
   return (
