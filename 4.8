@@ -1,0 +1,47 @@
+"""
+Лаб 4.8
+Зашифровать заданную строку: 
+
+варіант f
+по зеркальному отражению «Азбуки Морзе»; 
+"""
+
+vocab = {}
+vocab['a'] = '* -'
+vocab['b'] = '- * * *'
+vocab['c'] = ' - * - *'
+vocab['d'] = '- * *'
+vocab['e'] = '*'
+vocab['f'] = '* * - *'
+vocab['g'] = '- - *'
+vocab['h'] = '* * * *'
+vocab['i'] = '* *'
+vocab['j'] = '* - - -'
+vocab['k'] = '- * -'
+vocab['l'] = '* - * *'
+vocab['m'] = '- -'
+vocab['n'] = '- *'
+vocab['o'] = '- - - -'
+vocab['p'] = '* - - *'
+vocab['q'] = '- - * -'
+vocab['r'] = '* - *'
+vocab['s'] = '* * *'
+vocab['t'] = '-'
+vocab['u'] = '* * -'
+vocab['v'] = '* * * -'
+vocab['w'] = '* - -'
+vocab['x'] = '- * * -'
+vocab['y'] = '- * - -'
+vocab['z'] = '- - * *'
+
+
+def crypt(message, vocab):
+  rez = ''
+  for i in range(len(message)):
+    rez = rez + ' ' + vocab.get(message[i], '  ')
+  return(rez)
+
+text = 'Super text'
+
+print(text)
+print(crypt(text.lower(), vocab))

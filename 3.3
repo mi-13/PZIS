@@ -1,0 +1,58 @@
+"""
+Лаб 3.3
+Даны два списка чисел, которые могут содержать до 10000 чисел каждый. Выведите все числа, которые входят как в первый, так и во второй список в порядке:
+
+варіант f
+возрастания и все кратны 5; 
+"""
+
+from random import *
+from collections import Counter
+
+def getInput(errorMessage, message):
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
+
+def initList(begin, end, lengthList):
+  array = list()
+  for i in range(lengthList):
+    array.append(randint(begin, end))
+
+  return(array)
+
+def logic(list1, list2):
+  rez = list()
+  for i in range(len(list1)):
+    if (list1[i] in list2 and list1[i] % 5 == 0):
+      rez.append(list1[i])
+  
+  rez = list(set(rez))
+  rez.sort()
+  return rez
+
+
+list1 = list()
+list2 = list()
+sum1 = list()
+begin = 0
+end = 10
+lengthList = 10 #100 000 
+
+# begin = getInput("Incorrect input type, please, write real number", "Enter start interval:")
+# end = getInput("Incorrect input type, please, write real number", "Enter start interval:")
+# lengthList = getInput("Incorrect input type, please, write real number", "Enter length list:")
+
+list1 = initList(begin, end, lengthList)
+list2 = initList(begin, end, lengthList)
+
+print(list1)
+print(list2)
+
+print(logic(list1, list2))

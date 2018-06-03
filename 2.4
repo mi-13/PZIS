@@ -1,0 +1,36 @@
+"""
+Лаб 2.4
+Даны натуральные числа n, a[1] ... a[n] . Вычислить f(a[1]) + f(a[2]) + ... + f(a[n]) , где:
+варіант f
+"""
+
+def getInput(errorMessage, message):
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
+
+def function(x):
+  if i % 13 == 0:
+    return x**3
+  elif i % 13 == 1:
+    return 13*x
+  else:
+    return x / 13
+
+
+
+sum = num = n = 0
+num = getInput("Incorrect input type, please, write real number", "Enter how many elements you want:")
+print('Enter numbers in array:')
+for i in range(num):
+  n = getInput("Incorrect input type, please, write real number", "num :")
+  print(function(n))
+  sum = sum + function(n)
+
+print("Suma: ", sum)

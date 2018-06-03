@@ -1,0 +1,57 @@
+"""
+Лаб 3.6
+Политическая жизнь некоторой страны очень оживленная. В стране действует K политических партий, каждая из которых регулярно проводит некие политические акции. Дни, когда хотя бы одна из партий объявляет политические акции, при условии, что это не суббота или воскресенье (когда и так никто не работает), наносят большой ущерб экономике страны. i-я партия объявляет политические акции строго каждые i b дней, начиная с дня с номером i a . То есть i-я партия объявляет политические акции в дни i a , i bia  , i b2ia  и т.д. Если в какой-то день несколько партий объявляет политические акции, то это считается одной общенациональной политической акцией. В календаре страны в 2017 году n дней, пронумерованных от 1 до N. Первый день года является понедельником, шестой и седьмой дни недели – выходные. Программа получает на вход число дней в году n и число политических партий 250 k1   . Далее идет K строк, описывающие графики проведения политических акций. i-я строка содержит числа i a и i b ( i a1  , n ib  ). Выведите единственное число: количество политических акций, произошедших в течение года. 
+"""
+
+from random import *
+from collections import Counter
+
+def getInput(errorMessage, message):
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
+
+def init_config(days, companies_count):
+  rez = []
+  for i in range(companies_count):
+    current = list()
+    current.append(getInput("Incorrect input type, please, write real number", "Companie["+str(i+1)+"] will start from:"))
+    current.append(getInput("Incorrect input type, please, write real number", "Companie["+str(i+1)+"] repeat every:"))
+    rez.append(current)
+
+  return rez
+
+def shedule_componies(config, days):
+  rez = list()
+  active_companies = list()
+
+  for day in range(days):
+    rez.append(0)
+  
+  for companie in range(len(config)):
+    rez[config[companie][0]-1] = 1
+    for day in range(config[companie][0]-1, days, config[companie][1]):
+      if (day % 7 == 0 or day % 6 == 0): continue
+      rez[day] = 1
+
+  return rez
+
+days = getInput("Incorrect input type, please, write real number", "Days in year:")
+companies_count = getInput("Incorrect input type, please, write real number", "How many companies exist?:")
+
+config = init_config(days, companies_count)
+scheduler = shedule_componies(config, days)
+print(Counter(scheduler))
+
+
+# 1 1 1
+# 2   
+# 3 1 
+# 4   1
+# 5 1 

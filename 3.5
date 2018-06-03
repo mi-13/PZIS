@@ -1,0 +1,73 @@
+"""
+Лаб 3.5
+Анна и Николай играют в игру. Август загадал натуральное число от 1 до n (задается пользователем). Анна пытается угадать это число, для этого она называет некоторые множества натуральных чисел. Николай отвечает Анне YES, если среди названных ей чисел есть задуманное или NO – в противном случае. После нескольких заданных вопросов Анна запуталась в том, какие вопросы она задавала и какие ответы получила и просит вас помочь ей определить, какие числа мог задумать Николай.
+
+варіант f
+Первая строка входных данных содержит число 2n-1 – наибольшее число, которое мог загадать Николай. Далее идут строки, содержащие вопросы Анны. Каждая строка представляет собой набор чисел, разделенных символами подчеркивания. После каждой строки с вопросом идет ответ Николая: YES или NO. Наконец, последняя строка входных данных содержит одно слово HELP. Вы должны вывести (через апостроф, в порядке возрастания) все числа кратные 5, которые мог задумать Николай. 
+"""
+
+from random import *
+
+def getInput(errorMessage, message):
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
+
+def saveInput(number_set, number_list):
+  number = 0
+  rez = list()
+  print(number_list)
+  for i in number_list:
+    try:
+       number = int(i)       
+    except ValueError:
+       continue
+    else:
+       number_set.add(number)
+       rez.append(number)
+  
+  return(rez)
+
+def help_message(numbs):
+  rez = '';
+  for i in range(len(numbs)):
+    if (numbs[i] % 5 == 0):
+      if (rez == ''):
+        rez = rez + str(numbs[i])
+      else:
+        rez = rez + '`' + str(numbs[i])
+  
+  return(rez)
+
+
+
+secret_number = 0
+secret_number = getInput("Incorrect input type, please, write real number", "Secret number:")
+number = 0
+numbers = set()
+new_numbers = list()
+message = ''
+
+while True:
+  try:
+    message = input("Enter number with _ as separator:")
+    if (message == 'HELP'):
+      print(help_message(list(numbers)))
+      break
+    new_numbers = saveInput(numbers, message)
+    if (secret_number in new_numbers):
+      print("YES")
+    else:
+      print("NO")
+  except ValueError:
+     print("Incorrect input value.Try again")
+     continue
+
+
+print("exit")

@@ -1,0 +1,29 @@
+"""
+Лаб 3.9
+Список содержит названия городов Украины, области к которым они относятся, количество жителей в них и общую площадь территории. На основе данного создать списки, которые:
+
+варіант f
+разбивают текущий на группы: в одном – города, отсортированные по алфавиту, в другом – по возрастанию количества жителей;
+"""
+
+from random import *
+
+
+cities_default = {
+  "Kiev": 2847200,
+  "Dnipro": 1065008,
+  "Odessa": 1029049,
+}
+
+list_names = list()
+list_amount = list()
+
+for k,v in sorted(cities_default.items(),key = lambda x:(x[1],x[0])):
+  list_names.append({k, v})
+
+for k,v in sorted(cities_default.items(),key = lambda x:(x[0],x[1])):
+  list_amount.append({k, v})
+
+print(list_names)
+
+print(list_amount)

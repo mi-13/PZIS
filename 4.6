@@ -1,0 +1,25 @@
+"""
+Лаб 4.6
+Задана строка произвольной длинны содержащая информацию по специальности, на которой вы учитесь (в виде одного предложения, обязательно содержащего фразу «Прикладная математика»). Определить: 
+
+варіант f
+все слова, в которых ровно 2 раза встречается заданная буква; 
+"""
+
+
+text = input("Enter message: ")
+key = input("Enter char: ")
+
+words = text.split(' ')
+rezult = list()
+
+for i in range(len(words)):
+  counter = 0
+  word = words[i]
+  for j in range(len(word)):
+    if (key == word[j]):
+      counter = counter + 1
+  if (counter == 2):
+    rezult.append(words[i])
+
+print(rezult)

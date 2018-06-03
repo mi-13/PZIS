@@ -1,0 +1,54 @@
+"""
+Лаб 1.4 - вариант 6
+Вычислите значение функций согласно варианту, для указанных пользователем значений аргумента (х) и констант (a, b, c). 
+"""
+# TODO: validate me
+
+from math import sqrt, asin, pi
+
+def getInput(errorMessage, message):
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
+
+def calculation1(a, b, c, x):
+  return (
+    (
+      ((a * x**3.0) + (a*b/x))
+      /
+      ((x**(sqrt(x))) + (15.0*b*x))
+    )
+    +
+    (
+      (c + x)
+      /
+      (a + b)
+    )
+  );
+  
+def calculation2(a, b, c, x):
+  return (
+    (
+        asin(pi * x) 
+        +
+        12.0 * ((x + asin(pi * x))**(1.0/3.0))
+    )
+    /
+    2.0
+  );
+ 
+
+x = a = b = c = 0
+a = getInput("Incorrect input type, please, write real number", "Input const A = ")
+b = getInput("Incorrect input type, please, write real number", "Input const B = ")
+c = getInput("Incorrect input type, please, write real number", "Input const C = ")
+x = getInput("Incorrect input type, please, write real number", "Input value X = ")
+
+print('\nResult1: ' + str(calculation1(float(a), float(b), float(c), float(x))))
+print('\nResult2: ' + str(calculation2(float(a), float(b), float(c), float(x))))

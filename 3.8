@@ -1,0 +1,74 @@
+"""
+Лаб 3.8
+Стеки и очереди: 
+
+варіант f
+Создать очередь из сведений о клиентах банка: фамилии и суммы на счету. Организовать просмотр данных очереди и определить количество клиентов банка, у которых сумма на счету больше заданной суммы.
+"""
+
+from random import *
+
+def getInput(errorMessage, message):
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
+
+customers = [{
+  "name":"Cust10",
+  "amount":10,
+},{
+  "name":"Cust50",
+  "amount":50
+},{
+  "name":"Cust25",
+  "amount":25
+}]
+
+bank = list()
+limit = 0
+queue = list(customers)
+
+while True:
+  try:
+    message = input("Enter command: ")
+    if (message == 'NEXT'):
+      if (len(queue) == 0):
+        print("queue is empty")
+      else:
+        bank.append(queue.pop(0))
+      continue
+    if (message == 'QUEUE'):
+      for customer in range(len(queue)):
+        print(str(customer) + " = " + str(queue[customer]["name"]))
+      continue
+    if (message == 'MONEY'):
+      limit = getInput("Incorrect input type, please, write real number", "Input limit of money:")
+      count = 0
+      for customer in range(len(bank)):
+        if (bank[customer]["amount"] >= limit):
+          count = count + 1
+      print("Count customers: " + str(count))
+      continue
+    if (message == 'BANK'):
+      if (len(bank) == 0):
+        print("bank is empty")
+      else:
+        for customer in range(len(bank)):
+          print(str(customer) + " = " + str(bank[customer]["name"]))
+      continue
+    if (message == 'EXIT'):
+      break
+    
+    print("Command not found: NEXT, QUEUE, BANK, MONEY, EXIT")
+  except ValueError:
+     print("Incorrect input value.Try again")
+     continue
+
+
+print("exit")

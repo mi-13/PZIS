@@ -1,0 +1,33 @@
+"""
+Лаб 3.7
+Дан список слов (пользователь вводит фразу, содержащую не менее 15 слов) nx,,1x  и слово y (ключевое слово выбирается указанием его индекса во фразе). Определить входит ли хотя бы одно из слов i x в y (как подслово). Количество действий не должно превосходить константы согласно варианту, умноженной на суммарную длину всех слов (из основного списка и того в котором происходит поиск).
+
+варіант f
+K=1/3
+"""
+
+from random import *
+
+def getInput(errorMessage, message):
+  while True:
+    try:
+       userInput = int(input(message))       
+    except ValueError:
+       print(errorMessage)
+       continue
+    else:
+       return userInput 
+       break 
+
+text = input("Enter text with ' ' as separator")
+words = text.split(' ')
+for word in range(len(words)):
+  print(str(word) + ") " + str(words[word]))
+
+index = getInput("Incorrect input type, please, write real number", "Choose word:")
+
+for word in range(len(words)):
+  if (words[index] in words[word]):
+    print(str(words[word]) + " = " + str(words[index]))
+  else:
+    print(str(words[word]) + " != "+ str(words[index]))

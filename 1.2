@@ -1,0 +1,24 @@
+"""
+Лаб 1.2 - вариант 6
+Напишите программу вывода на экран набора символов, используя управляющие последовательности.
+"""
+def buildMessage(fugureData):
+  message = ""
+
+  for items in fugureData: 
+    for item in items:  
+      if item==0:
+        message += " "
+      else:
+        message += "1"
+    message += "\n"
+  return message;    
+
+
+figure=[]
+figure.append([0,0,0,0,0,0,1,0,0,0,0,0,0,0])
+figure.append([0,0,0,0,1,0,0,0,1,0,0,0,0,0])
+figure.append([0,0,1,0,1,0,0,0,1,0,1,0,0,0])
+figure.append([1,0,0,0,1,0,0,0,1,0,0,0,1,0])
+
+print(buildMessage(figure))

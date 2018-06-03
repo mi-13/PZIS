@@ -1,0 +1,21 @@
+"""
+Лаб 2.6
+Протабулировать функцию на отрезке [a,b] с шагом h: 
+варіант f
+"""
+
+from math import *
+
+def func(x): 
+  if (x>=0):
+    return(log10(sqrt(0.273 + x**2)))
+  else:
+    return(cos(pi*x + 0.35)/sin(pi*x + 0.35))
+
+a = -1
+b = 0.9
+h = 0.1
+i = a
+while i<=b:
+  print(i, " = ", func(i))
+  i = i + h

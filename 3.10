@@ -1,0 +1,29 @@
+"""
+Лаб 3.10
+Создать словарь-разговорник по указанной в варианте теме, содержащий 10 слов вида: слово на украинском и его перевод. Вывести на экран измененный словарь, в котором первым идет слово на инострранном из входного словаря, а рядом его украинский перевод. 
+
+варіант f
+украинско-турецкий, тема словаря – отдых 
+"""
+
+from random import *
+
+
+vocabulary_default = dict()
+vocabulary_default["відпочинок"] = "rekreasyon"
+vocabulary_default["пальма"] = "palmiye"
+vocabulary_default["сонце"] = "güneş"
+vocabulary_default["пляж"] = "sahil"
+vocabulary_default["літак"] = "uçak"
+vocabulary_default["багаж"] = "bagaj"
+vocabulary_default["віза"] = "vize"
+
+
+ukr_tur = vocabulary_default
+tur_ukr = list()
+
+for word in vocabulary_default:
+  tur_ukr.append({vocabulary_default[word], word})
+
+print(ukr_tur)
+print(tur_ukr)
