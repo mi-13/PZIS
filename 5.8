@@ -1,0 +1,73 @@
+"""
+Лаб 5.8
+Имеется таблица данных о витаминном составе плодов и ягод:
+Составить программу обработки этих данных, позволяющую определить
+
+c) количественное содержание витаминов в заданном наборе определенных фруктов
+"""
+from random import *
+
+class Fruit:
+  name = ''
+  a = 0
+  b1 = 0
+  b2 = 0
+  pp = 0
+  c = 0
+  p = 0
+  
+  def __init__(self, name, a, b1, b2, pp, c, p):
+    self.name = name
+    self.a = a
+    self.b1 = b1
+    self.b2 = b2
+    self.pp = pp
+    self.c = c
+    self.p = p
+
+  def add(self, a, b1, b2, pp, c, p):
+    self.a += a
+    self.b1 += b1
+    self.b2 += b2
+    self.pp += pp
+    self.c += c
+    self.p += p
+
+  def show(self):
+    print("a = ", self.a) 
+    print("b1 = ", self.b1) 
+    print("b2 = ", self.b2) 
+    print("pp = ", self.pp) 
+    print("c = ", self.c) 
+    print("p = ", self.p) 
+
+
+rez = list()
+rez.append(Fruit("Абрикос", 1.6, 0.03, 0.06, 0.07, 6, 570))
+rez.append(Fruit("Айва", 0.2, 0.03, 0.03, 0.02, 115, 415))
+rez.append(Fruit("Виноград", 0.01, 0.01, 0.01, 0.06, 4, 300))
+rez.append(Fruit("Вишня", 0.7, 0.03, 0.03, 0.04, 15, 370))
+rez.append(Fruit("Груша", 0.01, 0.02, 0.03, 0.01, 5, 120))
+rez.append(Fruit("Земляника", 0.03, 0.03, 0.02, 0.25, 32, 250))
+rez.append(Fruit("Крыжовник", 0.2, 0.01, 0.02, 0.25, 32, 250))
+rez.append(Fruit("Малина", 0.02, 0.02, 0.05, 0.06, 25, 180))
+rez.append(Fruit("Персик", 0.05, 0.04, 0.01, 0.07, 15, 350))
+rez.append(Fruit("Слива", 0.07, 0.06, 0.04, 0.06, 5, 312))
+rez.append(Fruit("Черная смородина", 0.1, 0.02, 0.02, 0.03, 200, 500))
+rez.append(Fruit("Черешня", 0.15, 0.01, 0.01, 0.04, 15, 95))
+rez.append(Fruit("Шиповник", 0.25, 0.03, 0.06, 0.05, 300, 600))
+rez.append(Fruit("Яблоко", 0.03, 0.01, 0.03, 0.03, 5, 250))
+
+calc_list = ["Персик", "Черешня", "Виноград"]
+calc_obj = Fruit("Result", 0, 0, 0, 0, 0, 0)
+
+for i in range(len(rez)):
+  fruit = rez[i]
+  if (fruit.name not in calc_list): continue
+  calc_obj.add(fruit.a, fruit.b1, fruit.b2, fruit.pp, fruit.c, fruit.p)
+
+print(calc_list)
+calc_obj.show()
+
+    
+print("exit")
