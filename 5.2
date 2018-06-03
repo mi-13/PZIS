@@ -1,0 +1,43 @@
+"""
+Лаб 5.2
+Заданы 2 одномерных массива состоящие из n целых чисел, которые заполняются случайным образом. Составить программу формирования третьего массива: 
+
+варіант f
+включая в него попеременно элементы первого и второго массивов в порядке их следования
+"""
+
+from random import *
+
+def initList(begin, end, lengthList):
+  array = list()
+  for i in range(lengthList):
+    array.append(randint(begin, end))
+
+  return(array)
+
+def logic(list1, list2):
+  rez = list()
+
+  for i in range(len(list1)):
+    if (i % 2 == 0):
+      rez.append(list2[i])
+    else:
+      rez.append(list1[i])
+
+  return(rez)
+
+list1 = list()
+list2 = list()
+list3 = list()
+begin = 0
+end = 100
+lengthList = 10
+
+
+list1 = initList(begin, end, lengthList)
+list2 = initList(begin, end, lengthList)
+list3 = logic(list1, list2)
+
+print("List1 = ", list1)
+print("List2 = ", list2)
+print("List3 = ", list3)
