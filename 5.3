@@ -1,0 +1,26 @@
+"""
+Лаб 5.3
+Составить программу вывода на экран: 
+
+варіант f
+первых 100 четных натуральных нечетных чисел и распечатать его в виде матрицы 10х10; 
+"""
+
+from random import *
+
+def logic(count):
+  rez = list()
+
+  i = 0
+  row = ''
+  while (i < count):
+    i = i + 1
+    if (i % 10 == 0):
+      print(row)
+      row = ''
+    if (i % 2 == 0): continue
+    row = row + ' ' +str(i)
+
+
+
+logic(100)
