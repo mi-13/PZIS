@@ -1,0 +1,58 @@
+"""
+Лаб 5.9
+Для ведения рейтинга группы сформировать таблицу, содержащую список студентов, список предметов одного семестра и результирующий рейтинг по ним (использовать данные прошлого семестра – результаты сессии/аттестации). Составить программу обработки этих данных, позволяющую: 
+
+c) вывести на экран фамилии студентов с наибольшим рейтингом; 
+"""
+
+from random import *
+
+class Subject:
+  def __init__(self, name, point):
+    self.name = name
+    self.point = point
+  
+  def showInfo(self):
+    print("\t" + self.name + ": " + str(self.point))
+
+class Student:
+  name = ''
+  subjects = list()
+  
+  def __init__(self, name, subjects):
+    self.name = name
+    self.subjects = subjects
+  
+  def showInfo(self):
+    print(self.name)
+    for i in range(len(self.subjects)):
+      self.subjects[i].showInfo()
+  
+  def get_rating(self):
+    rating = 0
+
+    for i in range(len(self.subjects)):
+      rating = rating + self.subjects[i].point
+
+    return(rating / len(self.subjects))
+
+
+students = list()
+for i in range(3):
+  students.append(Student("Student" + str(i+1), [
+    Subject("math", randint(0, 100)), 
+    Subject("infor", randint(0, 100)),
+    Subject("sport", randint(0, 100)),
+    Subject("ga", randint(0, 100))
+  ]))
+
+student_with_max_rating = students[0]
+max_rating = 0
+for i in range(len(students)):
+  max_rating = students[i].get_rating()
+  students[i].showInfo()
+  print("Rating: " + str(max_rating))
+  if (max_rating > student_with_max_rating.get_rating()):
+    student_with_max_rating = students[i]
+
+print("MAX = " + student_with_max_rating.name + " [" + str(student_with_max_rating.get_rating()) + "]")
