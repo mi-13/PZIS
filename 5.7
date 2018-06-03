@@ -1,0 +1,34 @@
+"""
+Лаб 5.7
+Создайте класс SumElements состоящий из методов: 
+
+варіант b
+PrintMatrix - производит вывод на экран матрицы переданной ему в качестве параметра в форме таблицы. 
+"""
+from random import *
+
+class SumElements:
+    def PrintMatrix(self, array):
+        for i in range(len(array)):
+          row = ''
+          for j in range(len(array[i])):
+            row = row + ' ' + str(array[i][j])
+          print(row)
+
+def initList(begin, end, lengthList):
+  array = list()
+  for i in range(lengthList):
+    array.append(randint(begin, end))
+
+  return(array)          
+
+array = list()
+
+for i in range(10):
+  array.append(initList(1, 10, 10))
+
+print("List", array)
+
+rez = SumElements()
+rez.PrintMatrix(array)
+
