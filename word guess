@@ -1,51 +1,208 @@
-import random
-import datetime
+'use strict';
 
-def generateParent(length, geneSet):
-    genes = list("")
-    for i in range(0,length):
-        geneIndex = random.randint(0, len(geneSet) -1);
-        genes.append(geneSet[geneIndex])
-    return(''.join(genes))
+angular.module('myApp', [])
+    .controller('AppController', AppController);
 
-def getFitness(candidate, target):
-   fitness = 0
-   for i in range(0, len(candidate)):
-       if target[i] == candidate[i]:
-           fitness += 1
-   return(fitness)
 
-def display(candidate, target, startTime):
-    timeDiff = datetime.datetime.now() - startTime
-    fitness = getFitness(candidate, target)
-    print ("%s\t%i\t%s" % (candidate, fitness, str(timeDiff)))
+AppController.$inject = ['$scope'];
 
-def mutate(parent, geneSet):
-   geneIndex = random.randint(0, len(geneSet) -1);
-   index = random.randint(0, len(parent) - 1)
-   genes = list(parent)
-   genes[index] = geneSet[geneIndex]
-   return(''.join(genes))
+function AppController($scope) {
+  $scope.target = 'TEST';
+  var genesetFull = "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      geneset = '',
+      alphabet = [],
+      wordMap = [],
+      count = 0;
 
-def getBest(get_fitness, display, targetLen, geneSet):
-    random.seed()
-    bestParent = generateParent(targetLen, geneSet)
-    bestFitness = get_fitness(bestParent)
-    display(bestParent)
- 
-    while bestFitness < len(bestParent):
-       child = mutate(bestParent, geneSet)
-       childFitness = get_fitness(child)
- 
-       if childFitness > bestFitness:
-          bestFitness = childFitness
-          bestParent = child
-          display(bestParent)
-    return bestParent
+  $scope.guessWord = function (target) {
+      count = 0;
+      target = _.upperCase(target);
+      alphabet = generateAlphabet(genesetFull, target);
+      wordMap = generateWords(alphabet, target);
 
-geneset = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!.`"
-target = "i`m alive"
-startTime = datetime.datetime.now()
-fnDisplay = lambda candidate: display(candidate, target, startTime)
-fnGetFitness = lambda candidate: getFitness(candidate, target)
-best = getBest(fnGetFitness, fnDisplay, len(target), geneset)
+      do {
+          alphabet = mixAalphabet(wordMap, target);
+          if (_.find(alphabet, function(word) { return word.join('') == target }) !== undefined) {
+              console.log('WIN = ', count, ' WORD = ', target);
+              break;
+          }
+          wordMap = generateWords(alphabet);
+          wordMap = cleanUp(wordMap, target);
+          count++;
+      } while (1 == 1);
+
+  };
+
+  function generateAlphabet(geneset, target) {
+      var rez = [];
+      for(var i=0; i<target.length; i++) {
+          rez[i] = []
+          for(var j=0; j<target.length; j++){
+              if (i == j) {
+                  rez[i][j] = target[j];
+                  continue;
+              }
+
+              rez[i][j] = geneset[_.random(0, geneset.length - 1)]
+          }
+      }
+      return rez;
+  }
+
+  function mixAalphabet(alphabet, target) {
+    var newAlphabet = [], currentAlphabet = [];
+
+    for(var i = 0; i < alphabet.length; i++){
+      var wordSrc = alphabet[i];
+      for(var j = i+1; j < alphabet.length; j++) {
+          var wordRmd = alphabet[j];
+          currentAlphabet = [];
+
+          for(var inner = 0; inner < wordSrc.length; inner++) {
+
+              if (wordRmd[inner] == target[inner]) {
+                  currentAlphabet.push(wordRmd[inner])
+                  continue;
+              }
+              if (wordSrc[inner] == target[inner]) {
+                  currentAlphabet.push(wordSrc[inner])
+                  continue;
+              }
+              if (inner % 2 === 0) {
+                  currentAlphabet.push(wordRmd[inner]);
+              } else {
+                  currentAlphabet.push(wordSrc[inner]);
+              }
+          }
+          newAlphabet = _.concat(newAlphabet, [currentAlphabet]);
+          currentAlphabet = [];
+
+          for(var inner = 0; inner < wordRmd.length; inner++) {
+
+              if (wordRmd[inner] == target[inner]) {
+                  currentAlphabet.push(wordRmd[inner])
+                  continue;
+              }
+              if (wordSrc[inner] == target[inner]) {
+                  currentAlphabet.push(wordSrc[inner])
+                  continue;
+              }
+              if (inner % 2 !== 0) {
+                  currentAlphabet.push(wordRmd[inner]);
+              } else {
+                  currentAlphabet.push(wordSrc[inner]);
+              }
+          }
+
+          newAlphabet = _.concat(newAlphabet, [currentAlphabet]);
+      }
+    }
+      return _.uniq(newAlphabet);
+  }
+
+  function generateWords(alphabet) {
+      return _.map(alphabet, function (chars) {
+          return _.join(chars, '');
+      });
+  }
+
+  function cleanUp(map, target) {
+      var rez = [];
+
+      for(var i in map){
+          var word = map[i];
+          rez[i] = {
+              word: word,
+              matchedCount: 0,
+              map: []
+          };
+
+          for(var p in target) {
+              rez[i].map[p] = (word[p] == target[p]) ? 1 : 0;
+              rez[i].matchedCount += rez[i].map[p]
+          }
+      }
+
+
+
+      var tmpRez = []
+      for(var i in rez) {
+          var workSrc = rez[i];
+          if (_.includes(workSrc.map, 1)) {
+              tmpRez.push(workSrc);
+          }
+      }
+
+      rez = _.orderBy(tmpRez, ['matchedCount'], ['desc']);
+      var tmpRezPoint = [];
+      var tmpRezWord = [];
+
+      for(var i in rez) {
+          var workSrc = rez[i];
+          if (!tmpRezPoint.length) {
+              tmpRezPoint.push({
+                  map: workSrc.map,
+                  word: workSrc.word
+              });
+              continue;
+          }
+
+          for(var j in rez){
+              var wordRmd = rez[j];
+              var hasUniq = false;
+
+              for(var p in wordRmd.map) {
+                  var count = 0
+                  if (wordRmd.map[p] == 0) continue;
+                  for(var q in tmpRezPoint) {
+                      if (tmpRezPoint[q].map[p] == 1) {
+                          count++;
+                      }
+                  }
+                  if (count == 0) {
+                      hasUniq = true;
+                  }
+              }
+
+              if (hasUniq)
+                tmpRezPoint.push({
+                    map: wordRmd.map,
+                    word: wordRmd.word
+                });
+          }
+      }
+
+      var rez = []
+      for(var i in tmpRezPoint){
+          var wordSrc = tmpRezPoint[i];
+
+          for(var j in tmpRezPoint){
+              if (i == j) continue;
+              var wordRmd = tmpRezPoint[i];
+              if (_.includes(_.map(rez, 'word'), wordRmd)) continue;
+
+              if (arraysEqual(wordSrc, wordRmd)) {
+                  rez.push(wordSrc);
+              } else {
+                  rez.push(wordSrc);
+                  rez.push(wordRmd);
+              }
+          }
+
+      }
+
+      rez = _.uniq(_.map(rez, 'word'))
+
+      return rez;
+  }
+
+    function arraysEqual(a, b) {
+        if (a == null || b == null) return false;
+        if (a.length != b.length) return false;
+
+        for (var i = 0; i < a.length; ++i) {
+            if (a[i] !== b[i]) return false;
+        }
+        return true;
+    }
+}
